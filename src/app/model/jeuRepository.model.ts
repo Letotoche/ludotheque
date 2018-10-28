@@ -1,10 +1,10 @@
-import { StaticDatasource } from "./staticDatasource.model";
-import { Jeu } from "./jeu.model";
+import { StaticDatasource } from './staticDatasource.model';
+import { Jeu } from './jeu.model';
 
 export class JeuRepository {
     private dataSource: StaticDatasource;
     private jeux: Jeu[] = [];
-    private locatorJeu = (jeu:Jeu, idSearch: number) => jeu.id == idSearch; 
+    private locatorJeu = (jeu: Jeu, idSearch: number) => jeu.id == idSearch; 
 
 
     constructor() {

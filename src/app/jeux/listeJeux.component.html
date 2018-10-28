@@ -19,7 +19,7 @@
       <td>{{jeu.nom}}</td>
       <td>{{jeu.editeur}}</td>
       <td><span *ngFor="let cat of jeu.categories">{{cat.libelle}}</span></td>
-      <td>{{jeu.accessibilite}}</td>
+      <td [ld-access]="jeu.accessibilite" >{{jeu.accessibilite}}</td>
       <td>{{jeu.nbJoueursMin}} à {{jeu.nbJoueursMax}} joueurs</td>
       <td>{{jeu.dureeMin}} min</td>
     </tr>

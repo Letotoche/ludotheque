@@ -4,7 +4,7 @@ import { Jeu, ACCESSIBILITE } from '../model/jeu.model';
 import { JeuRepository } from '../model/jeuRepository.model';
 
 @Component({
-  selector: 'app-listeJeux',
+  selector: 'app-liste-jeu',
   templateUrl: './listeJeux.component.html',
   styleUrls: ['./listeJeux.component.css']
 })
@@ -13,16 +13,16 @@ export class ListeJeuxComponent implements OnInit {
   private repoJeu: JeuRepository;
   public jeux: Jeu[];
   public jeuEdit: Jeu;
-  private accessibiliteKeys: number[]; 
+  private accessibiliteKeys: number[];
   model;
   constructor() { }
 
-  ngOnInit() {    
+  ngOnInit() {
     this.repoJeu = new JeuRepository();
     this.jeux = this.repoJeu.getJeux();
     this.jeuEdit = new Jeu();
-    this.accessibiliteKeys = Array.from(ACCESSIBILITE.keys(),(v, i)=>v);
-    this.model=1;
+    this.accessibiliteKeys = Array.from(ACCESSIBILITE.keys(), (v, i) => v);
+    this.model = 1;
   }
 
   getJeux(): Jeu[] {
@@ -45,13 +45,13 @@ export class ListeJeuxComponent implements OnInit {
   }
 
   get lastAccessibilite() {
-    return this.getAccessibilites()[ACCESSIBILITE.size-1];
+    return this.getAccessibilites()[ACCESSIBILITE.size - 1];
   }
 
   saveJeu(jeu: Jeu) {
       this.repoJeu.saveJeu(jeu);
   }
-  
+
   razJeuEdit() {
     this.jeuEdit = new Jeu();
     console.log(JSON.stringify(this.jeuEdit));

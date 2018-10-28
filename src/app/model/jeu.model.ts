@@ -5,7 +5,7 @@ export class Jeu {
                 public editeur?: string,
                 public distributeur?: string,
                 public categories?: Categorie[],
-                public accessibilite: number=3,
+                public accessibilite?: number,
                 public ageMin?: number,
                 public nbJoueursMin?: number,
                 public nbJoueursMax?: number,
