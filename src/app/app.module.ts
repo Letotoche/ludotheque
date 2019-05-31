@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { ListeJeuxComponent } from './jeux/listeJeux.component';
 import { AppRoutingModule } from './app-routing.module';
 import { EmpruntComponent } from './emprunt/emprunt.component';
-import { LdAccessDirective } from './jeux/access.directive';
+import { JeuEditComponent } from './jeux/jeu-edit/jeu-edit.component';
 
 
 @NgModule({
@@ -14,7 +14,7 @@ import { LdAccessDirective } from './jeux/access.directive';
       AppComponent,
       ListeJeuxComponent,
       EmpruntComponent,
-      LdAccessDirective
+      JeuEditComponent
    ],
    imports: [
       BrowserModule,
