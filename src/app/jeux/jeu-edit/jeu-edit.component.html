@@ -2,13 +2,14 @@
   <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="editJeuLabel">Nouveau Jeu</h5>
+        <h5 class="modal-title" id="editJeuLabel">
+          {{getTitreAction()}}
+        </h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        jeu : {{jsonEditJeu}} 
         <form novalidate (ngSubmit)="jeuEdit"> 
 
           <div class="form-group row">
@@ -19,6 +20,7 @@
                       required
                       name="nom"
                       [(ngModel)]="jeuEdit.nom"
+                      [readonly]="!isModifiable()"
                       />
             </div>
           </div>
@@ -30,6 +32,7 @@
                       placeholder="éditeur" 
                       name="editeur"
                       [(ngModel)]="jeuEdit.editeur"
+                      [readonly]="!isModifiable()"
                       />
             </div>
           </div>
@@ -41,6 +44,7 @@
                         placeholder="Distributeur" 
                         name="distributeur"
                         [(ngModel)]="jeuEdit.distributeur"
+                        [readonly]="!isModifiable()"
                         />
               </div>
           </div>
@@ -49,8 +53,9 @@
           <div class="form-group row">
               <label class="col-sm-2 col-form-label">Accessibilite</label>
               
-              <div class="btn-group col-sm-7">
-                <input type="range" class="custom-range" 
+              <div *ngIf="isModifiable()" class="btn-group col-sm-7">
+                <input  
+                      type="range" class="custom-range" 
                       [min]="firstAccessibilite" [max]="lastAccessibilite"
                       name="accessibilite"
                       [(ngModel)]="jeuEdit.accessibilite"
@@ -73,6 +78,7 @@
                       placeholder="Age min" 
                       name="ageMin"
                       [(ngModel)]="jeuEdit.ageMin"
+                      [readonly]="!isModifiable()"
                       />
             </div>
           </div>
@@ -84,7 +90,7 @@
                       placeholder="min"
                       name="nbJoueursMin"
                       [(ngModel)]="jeuEdit.nbJoueursMin"
-
+                      [readonly]="!isModifiable()"
                       />
             </div>
             <label class="col-sm-1 col-form-label">à</label>
@@ -93,6 +99,7 @@
                       placeholder="max" 
                       name="nbJoueursMax"
                       [(ngModel)]="jeuEdit.nbJoueursMax"
+                      [readonly]="!isModifiable()"
                       />
             </div>
             <div class="col-sm-1 col-form-label">joueurs</div>
@@ -102,9 +109,9 @@
             <label class="col-sm-2 col-form-label">Durée</label>
             <div class="col-sm-2">
               <input  class="form-control" 
-                      placeholder="60" 
                       name="dureeMin"
                       [(ngModel)]="jeuEdit.dureeMin"
+                      [readonly]="!isModifiable()"
                       />
             </div>
             <div class="col-sm-1 col-form-label">minutes</div>
@@ -115,8 +122,9 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-        <button type="button" class="btn btn-primary">Sauver</button>
+        <button *ngIf="isModifiable()" type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+        <button *ngIf="isModifiable()" type="button" class="btn btn-primary" (click)="sauverJeu()" data-dismiss="modal">Sauver</button>
+        <button *ngIf="!isModifiable()"type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
       </div>
     </div>
   </div>

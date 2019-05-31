@@ -23,17 +23,19 @@
         <td>{{jeu.accessibilite}}</td>
         <td>{{jeu.nbJoueursMin}} à {{jeu.nbJoueursMax}} joueurs</td>
         <td>{{jeu.dureeMin}} min</td>
-        <td><a href="#">
-          <span class="glyphicon glyphicon-pencil">edit</span>
-        </a></td>
+        <td>
+            <a href="#" (click)="visualiser(jeu.id)" data-toggle="modal" data-target="#editJeuModal" ><span class="oi oi-magnifying-glass mr-1"></span></a>
+            | <a href="#" (click)="editer(jeu.id)" data-toggle="modal" data-target="#editJeuModal" ><span class="oi oi-pencil ml-1 mr-1"></span></a>
+            | <a href="#" (click)="supprimer(jeu.id)" data-toggle="modal" ><span class="oi oi-trash ml-1 mr-1"></span></a>
+        </td>
       </tr>
     </tbody>
   </table>
 
-  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editJeuModal" (click)="razJeuEdit()">
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editJeuModal" (click)="creer()">
       Ajouter un jeu
   </button>
 
   <!-- Modal -->
-  <app-jeu-edit></app-jeu-edit>
+  <app-jeu-edit [etat]="action" [idJeu]="idEdit" (jeuSav)="sauver($event)"></app-jeu-edit>
 </div>

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Jeu, ACCESSIBILITE } from '../model/jeu.model';
-import { JeuRepository } from '../model/jeuRepository.model';
+import { EtatEdit } from './jeu-edit/jeu-edit.component';
+import { JeuService } from '../model/jeu.service';
 
 @Component({
   selector: 'app-liste-jeu',
@@ -10,19 +11,16 @@ import { JeuRepository } from '../model/jeuRepository.model';
 })
 export class ListeJeuxComponent implements OnInit {
 
-  private repoJeu: JeuRepository;
   public jeux: Jeu[];
-  public jeuEdit: Jeu;
-  private accessibiliteKeys: number[];
-  model;
-  constructor() { }
+
+  action: EtatEdit;
+  idEdit: number;
+
+
+  constructor(private jeuService:JeuService) { }
 
   ngOnInit() {
-    this.repoJeu = new JeuRepository();
-    this.jeux = this.repoJeu.getJeux();
-    this.jeuEdit = new Jeu();
-    this.accessibiliteKeys = Array.from(ACCESSIBILITE.keys(), (v, i) => v);
-    this.model = 1;
+    this.jeux = this.jeuService.getJeux();
   }
 
   getJeux(): Jeu[] {
@@ -33,36 +31,29 @@ export class ListeJeuxComponent implements OnInit {
     return this.jeux.length;
   }
 
-  getAccessibilites() {
-    return this.accessibiliteKeys;
+  sauver(jeu: Jeu) {
+      this.jeuService.saveJeu(jeu);
+      this.jeux = this.jeuService.getJeux();
   }
 
-  get accesbiliteVal() {
-    return ACCESSIBILITE.get(this.jeuEdit.accessibilite);
+  supprimer(idJeu: number) {
+    this.jeuService.deleteJeu(idJeu);
+    this.jeux = this.jeuService.getJeux();
   }
-  get firstAccessibilite() {
-    return this.getAccessibilites()[0];
+  
+  visualiser(idJeu: number) {
+    this.action = EtatEdit.CONSULTATION;
+    this.idEdit = idJeu;
   }
-
-  get lastAccessibilite() {
-    return this.getAccessibilites()[ACCESSIBILITE.size - 1];
-  }
-
-  saveJeu(jeu: Jeu) {
-      this.repoJeu.saveJeu(jeu);
-  }
-
-  razJeuEdit() {
-    this.jeuEdit = new Jeu();
-    console.log(JSON.stringify(this.jeuEdit));
+  
+  editer(idJeu: number) {
+    this.action = EtatEdit.MODIFICATION;
+    this.idEdit = idJeu;
   }
 
-  majAccessibilite(acc: number) {
-
-  }
-
-  get jsonEditJeu() {
-    return JSON.stringify(this.jeuEdit);
+  creer() {    
+    this.action = EtatEdit.CREATION;
+    this.idEdit = undefined;
   }
 
 }
