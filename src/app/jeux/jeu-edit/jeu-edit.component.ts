@@ -37,6 +37,7 @@ export class JeuEditComponent implements OnInit {
       case EtatEdit.CREATION: {
         console.log("majEtat() -> etat Création => créatoin nouveau jeu");  
         this.jeuEdit = new Jeu();
+        this.jeuEdit.accessibilite = 3;
         break;
       }
       case EtatEdit.CONSULTATION:

@@ -26,9 +26,13 @@ export class ListeJeuxComponent implements OnInit {
   getJeux(): Jeu[] {
     return this.jeux;
   }
-
+ 
   getNbJeux(): number {
     return this.jeux.length;
+  }
+
+  getLibelleAccessilite(valAccessilibite: number) {
+    return ACCESSIBILITE.get(valAccessilibite);
   }
 
   sauver(jeu: Jeu) {
@@ -55,6 +59,6 @@ export class ListeJeuxComponent implements OnInit {
     this.action = EtatEdit.CREATION;
     this.idEdit = undefined;
   }
-  
+
 
 }

@@ -1,6 +1,7 @@
 <div class="container shadow mt-4 mb-4 h-100">
-  <div>
-    <h2>Il y a actuellement {{getNbJeux()}} jeux dans la ludothèque</h2>
+  <br>
+  <div class="alert alert-secondary">
+    <h5 class="alert-heading mb-0">Il y a actuellement <span class="badge badge-pill badge-secondary">{{getNbJeux()}}</span> jeux dans la ludothèque</h5>
   </div>
 
   <table class="table table-striped table-sm table-hover" >
@@ -20,7 +21,10 @@
         <td>{{jeu.nom}}</td>
         <td>{{jeu.editeur}}</td>
         <td><span *ngFor="let cat of jeu.categories">{{cat.libelle}}</span></td>
-        <td>{{jeu.accessibilite}}</td>
+        <td [ngClass]="{'text-success': (jeu.accessibilite<3),
+        'text-primary': jeu.accessibilite==3,
+        'text-warning': jeu.accessibilite==4,
+        'text-danger font-weight-bold': jeu.accessibilite==5}">{{getLibelleAccessilite(jeu.accessibilite)}}</td>
         <td>{{jeu.nbJoueursMin}} à {{jeu.nbJoueursMax}} joueurs</td>
         <td>{{jeu.dureeMin}} min</td>
         <td>
