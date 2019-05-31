@@ -11,6 +11,19 @@ export class Jeu {
                 public nbJoueursMax?: number,
                 public dureeMin?: number
                 ) {};
+
+    cloner(jeuClone: Jeu) {
+        this.id=jeuClone.id;
+        this.nom=jeuClone.nom;
+        this.editeur=jeuClone.editeur;
+        this.distributeur=jeuClone.distributeur;
+        this.categories=jeuClone.categories;
+        this.accessibilite=jeuClone.accessibilite;
+        this.ageMin=jeuClone.ageMin;
+        this.nbJoueursMin=jeuClone.nbJoueursMin;
+        this.nbJoueursMax=jeuClone.nbJoueursMax;
+        this.dureeMin=jeuClone.dureeMin;
+    }
 } 
 
 export class Categorie {

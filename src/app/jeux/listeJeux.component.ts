@@ -55,5 +55,6 @@ export class ListeJeuxComponent implements OnInit {
     this.action = EtatEdit.CREATION;
     this.idEdit = undefined;
   }
+  
 
 }

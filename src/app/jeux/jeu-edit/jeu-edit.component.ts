@@ -42,7 +42,8 @@ export class JeuEditComponent implements OnInit {
       case EtatEdit.CONSULTATION:
       case EtatEdit.MODIFICATION: {
         console.log("majEtat() -> etat Modif ou consult => récupération jeu par id " + this.idJeu);        
-        this.jeuEdit = this.jeuService.getJeu(this.idJeu);
+        this.jeuEdit = new Jeu();
+        this.jeuEdit.cloner(this.jeuService.getJeu(this.idJeu));
         break;
       }
     }
