@@ -13,15 +13,11 @@ export class CategorieService {
   constructor() { 
     this.dataSource = new StaticDatasource();
       this.categories = new Array<Categorie>();
-      this.dataSource.data.forEach(jeu => {
-        jeu.categories.forEach(cat => { 
-          console.log("recherche de ["+cat.libelle+"] dans " + this.categories.reduce(c=>return c.libelle) + " : " + this.categories.find(c => c.libelle==cat.libelle));
-          
-          if(!this.categories.find(c => c.libelle==cat.libelle))
-            this.categories.push(cat);
-          });
-      });
-  }
+      this.categories =  this.dataSource.data
+                                            .map( (jeu,idx,tab) => {return jeu.categories} )
+                                            .reduce((acc, val) => acc.concat(val), [])
+                                            .filter( (cat,idx,tab) => tab.findIndex(c => c.libelle===cat.libelle) === idx);  
+    }
 
   getAllCategories():Categorie[] {
     return this.categories;
