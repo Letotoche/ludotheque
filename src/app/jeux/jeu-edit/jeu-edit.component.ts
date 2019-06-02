@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, SimpleChanges, Output, EventEmitter } from '@angular/core';
-import { Jeu, ACCESSIBILITE } from 'src/app/model/jeu.model';
+import { Jeu, ACCESSIBILITE, Categorie } from 'src/app/model/jeu.model';
 import { JeuService } from 'src/app/model/jeu.service';
+import { CategorieService } from 'src/app/model/categorie.service';
 
 @Component({
   selector: 'app-jeu-edit',
@@ -15,7 +16,7 @@ export class JeuEditComponent implements OnInit {
 
   private accessibiliteKeys: number[];
 
-  constructor(private jeuService:JeuService) { }
+  constructor(private jeuService:JeuService, private categorieService: CategorieService) { }
 
   ngOnInit() {
     this.etat = this.etat|(this.idJeu?EtatEdit.MODIFICATION:EtatEdit.CREATION);
@@ -32,6 +33,7 @@ export class JeuEditComponent implements OnInit {
    
   }
   
+
   private majEtat() {    
     switch (this.etat) {
       case EtatEdit.CREATION: {
@@ -50,6 +52,9 @@ export class JeuEditComponent implements OnInit {
     }
   }
 
+  getCategoriesDisponibles(): Categorie[] {
+    return this.categorieService.getAllCategories();
+  }
 
   getAccessibilites() {
     return this.accessibiliteKeys;
