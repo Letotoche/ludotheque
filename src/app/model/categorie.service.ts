@@ -20,7 +20,10 @@ export class CategorieService {
     }
 
   getAllCategories():Categorie[] {
-    return this.categories;
+    let liste: Categorie[];
+    liste = this.categories;
+    liste.sort( (c1, c2) => c1.libelle.localeCompare(c2.libelle) );
+    return liste;
   }
 
   getCategorieByLibelle(libelle: string): Categorie {

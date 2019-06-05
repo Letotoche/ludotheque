@@ -52,22 +52,26 @@
             </div>
           </div>
 
-          <div class="row">
-              <div class="col-sm-12">
-                <label for="categorie">Catégorie</label>
-                <div class="row p-4">
-                  <select 
-                      name="categorie.libelle"
-                      id="categorie"
-                      class="form-control selectpicker col-sm-4" >
-                    <option value=""></option>
-                    <option *ngFor="let cat of getCategoriesDisponibles()" value="{{cat.libelle}}">{{cat.libelle}}</option>
-                  </select>
-                  <div class="col-sm-8">
-                    <a href="#"><span class="oi oi-plus mr-1"></span></a>
-                  </div>
+          <div class="row form-group">
+            <div class="form-group col-sm-5">
+              <label for="categorie">Catégorie</label>
+              <select 
+                  name="categorie.libelle"
+                  id="categorie"
+                  class="form-control selectpicker" >
+                <option value=""></option>
+                <option *ngFor="let cat of getCategoriesDisponibles()" value="{{cat.libelle}}">{{cat.libelle}}</option>
+              </select>
+            </div>
+            <div class="col-sm-7 mt-4 pt-2">
+                <div class="form-row align-items-center">
+                  <a href="#" (click)="ajoutCategorie=true" *ngIf="!ajoutCategorie"><span class="oi oi-plus mr-1 mt-1"></span></a>
+                  <a href="#" (click)="ajoutCategorie=false" *ngIf="ajoutCategorie"><span class="oi oi-minus mr-1"></span></a>
+                  <input type="text" *ngIf="ajoutCategorie" class="form-control col-sm-5 ml-2 mr-2" name="categorie" [(ngModel)]="nouvelleCat"/>
+                  <button type="button" *ngIf="ajoutCategorie" class="btn btn-primary" (click)="ajouterCategorie()">Ajouter</button>
                 </div>
               </div>
+              
           </div>
 
           <div class="form-group row">
@@ -144,7 +148,7 @@
       <div class="modal-footer">
         <button *ngIf="isModifiable()" type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
         <button *ngIf="isModifiable()" type="button" class="btn btn-primary" (click)="sauverJeu()" data-dismiss="modal">Sauver</button>
-        <button *ngIf="!isModifiable()"type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
+        <button *ngIf="!isModifiable()" type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
       </div>
     </div>
   </div>

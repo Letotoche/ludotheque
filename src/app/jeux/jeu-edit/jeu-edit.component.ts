@@ -12,7 +12,10 @@ export class JeuEditComponent implements OnInit {
   @Input() idJeu: number;
   @Input() etat: EtatEdit;
   @Output() jeuSav = new EventEmitter<Jeu>();
-  jeuEdit : Jeu;
+  
+  jeuEdit: Jeu;
+  ajoutCategorie: boolean;
+  nouvelleCat: string;
 
   private accessibiliteKeys: number[];
 
@@ -22,6 +25,7 @@ export class JeuEditComponent implements OnInit {
     this.etat = this.etat|(this.idJeu?EtatEdit.MODIFICATION:EtatEdit.CREATION);
     this.accessibiliteKeys = Array.from(ACCESSIBILITE.keys(), (v, i) => v);
     this.majEtat();
+    this.ajoutCategorie = false;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -110,6 +114,11 @@ export class JeuEditComponent implements OnInit {
 
   sauverJeu() {
     this.jeuSav.emit(this.jeuEdit);
+  }
+
+  ajouterCategorie() {
+    this.categorieService.addCategorie(this.nouvelleCat);
+    this.ajoutCategorie = false;
   }
 
 }
