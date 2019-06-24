@@ -1,9 +1,12 @@
 <div class="container shadow mt-3 p-3">
-  <div class="card border-primary mb-3" style="max-width: 18rem;">
+  <div class="card border mb-3">
     <div class="card-header">Fiche de jeu</div>
-    <div class="card-body text-primary">
+    <div class="card-body ">
       <h5 class="card-title">{{ jeu?.nom }}</h5>
-      <p class="card-text">rien</p>
+      <p class="card-text">{{ jeu?.nom }} est un jeu de type {{jeu?.categorie.libelle}} de difficulté {{ jeu?.accessibilite }} pour des joueurs à partir de {{ jeu?.ageMin }} ans.
+      </p>
+      <p class="card-text">Une partie de {{ jeu?.nom }} se joue de {{ jeu?.nbJoueursMin }} à {{ jeu?.nbJoueursMax }} joueurs et dure environ {{ jeu?.dureeMin }} minutes .
+      </p>
     </div>
   </div>
 </div>

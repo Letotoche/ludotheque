@@ -13,16 +13,19 @@ import { Observable } from 'rxjs';
 })
 export class JeuFicheComponent implements OnInit {
 
-  jeu$: Observable<Jeu>;
+  jeu: Jeu;
 
   constructor(private jeuService: JeuService,
               private router: Router,
               private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.jeu$ = this.route.paramMap.pipe(
-      switchMap((params: ParamMap) =>
-        this.jeuService.getJeu(+params.get('id')))
+    console.log('fiche id ' + this.route.snapshot.paramMap.get('id'));
+    this.jeuService.getJeu(+this.route.snapshot.paramMap.get('id')).subscribe(
+      data => this.jeu = data,
+      error => {
+        console.error("Oups")
+      }
     );
   }
 
