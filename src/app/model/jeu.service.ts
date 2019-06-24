@@ -1,32 +1,35 @@
 import { Injectable } from '@angular/core';
 import { StaticDatasource } from './staticDatasource.model';
-import { Jeu } from './jeu.model';
+import { Jeu, Categorie } from './jeu.model';
+import { HttpClient} from '@angular/common/http';
+import { Observable } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class JeuService {
   
-  private dataSource: StaticDatasource;
+  //private dataSource: StaticDatasource;
   private jeux: Jeu[] = [];
   private locatorJeu = (jeu: Jeu, idSearch: number) => jeu.id == idSearch; 
 
 
-  constructor() {
-      this.dataSource = new StaticDatasource();
+  constructor(private http:HttpClient) {
+      //this.dataSource = new StaticDatasource();
       this.jeux = new Array<Jeu>();
-      this.dataSource.data.forEach(jeu => {
+      /*this.dataSource.data.forEach(jeu => {
           this.jeux.push(jeu);
-      });
+      });*/
   }
 
-  public getJeux(): Jeu[] {
-      return this.jeux;
+  public getJeux(): Observable<Jeu[]> {
+      return this.http.get<Jeu[]>('/server/api/v1/jeux');
   }
 
-  public getJeu(id: number) {
+  public getJeu(id: number): Observable<Jeu> {
     console.log("getJeu() -> id : " + id);
-    return this.jeux.find(j => this.locatorJeu(j, id));
+    return this.http.get<Jeu>(`/server/api/v1/jeux/${id}`);
   }
 
   public saveJeu(jeu:Jeu) {
@@ -40,7 +43,7 @@ export class JeuService {
   }
 
   deleteJeu(id: number) {
-    this.jeux.splice(this.jeux.indexOf(this.getJeu(id)),1);
+    //this.jeux.splice(this.jeux.indexOf(this.getJeu(id)),1);
   }
 
   private generateId(): number {

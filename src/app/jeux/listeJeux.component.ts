@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Jeu, ACCESSIBILITE } from '../model/jeu.model';
 import { EtatEdit } from './jeu-edit/jeu-edit.component';
 import { JeuService } from '../model/jeu.service';
+import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-liste-jeu',
@@ -19,8 +20,19 @@ export class ListeJeuxComponent implements OnInit {
 
   constructor(private jeuService:JeuService) { }
 
+  private majJeux() {
+    this.jeuService.getJeux().subscribe(
+      data => { this.jeux = data},
+      err => { 
+        console.error("ListeJeuxComponent.majJeux : " + err)
+        this.jeux = [];;
+      },
+      () => console.log("ListeJeuxComponent.majJeuxjeux : " + JSON.stringify(this.jeux))
+    );
+  }
+
   ngOnInit() {
-    this.jeux = this.jeuService.getJeux();
+    this.majJeux();
   }
 
   getJeux(): Jeu[] {
@@ -28,7 +40,7 @@ export class ListeJeuxComponent implements OnInit {
   }
  
   getNbJeux(): number {
-    return this.jeux.length;
+    return (this.jeux == null)?0:this.jeux.length;
   }
 
   getLibelleAccessilite(valAccessilibite: number) {
@@ -37,12 +49,12 @@ export class ListeJeuxComponent implements OnInit {
 
   sauver(jeu: Jeu) {
       this.jeuService.saveJeu(jeu);
-      this.jeux = this.jeuService.getJeux();
+      this.majJeux();
   }
 
   supprimer(idJeu: number) {
     this.jeuService.deleteJeu(idJeu);
-    this.jeux = this.jeuService.getJeux();
+    this.majJeux();
   }
   
   visualiser(idJeu: number) {

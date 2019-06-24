@@ -12,77 +12,52 @@
         </button>
       </div>
       <div class="modal-body ml-4 mr-4">
-        <form novalidate (ngSubmit)="jeuEdit"> 
+        <form novalidate (ngSubmit)="sauverJeu()" [formGroup]="jeuForm"> 
           
+          <button (click)="majNom()" type="button" class="btn btn-primary" >majBianca</button>
+
           <div class="form-group">
             <label for="nom">Nom</label>
-            <input  class="form-control" 
-                    placeholder="Saisir un nom" 
-                    required
-                    name="nom"
-                    id="nom"
-                    [(ngModel)]="jeuEdit.nom"
-                    [readonly]="!isModifiable()"
+            <input  type="text"
+                    class="form-control" 
+                    formControleName="nom"
                     />
-            <small id="nomHelp" class="form-text text-muted">Obligatoire</small>
-          </div>
-
-          <div class="row">
-            
-            <div class="form-group col-sm-6">
-              <label for>Editeur</label>
-              <input  class="form-control" 
-                      placeholder="Saisir un éditeur" 
-                      name="editeur"
-                      id="editeur"
-                      [(ngModel)]="jeuEdit.editeur"
-                      [readonly]="!isModifiable()"
-                      />
-            </div>
-
-            <div class="form-group col-sm-6">
-              <label for="distributeur">Distributeur</label>
-              <input  class="form-control" 
-                      placeholder="Distributeur" 
-                      name="distributeur"
-                      id="distributeur"
-                      [(ngModel)]="jeuEdit.distributeur"
-                      [readonly]="!isModifiable()"
-                      />          
-            </div>
           </div>
 
           <div class="row form-group">
             <div class="form-group col-sm-5">
               <label for="categorie">Catégorie</label>
               <select 
-                  name="categorie.libelle"
+                  formControleName="categorie"
                   id="categorie"
-                  class="form-control selectpicker" >
+                  class="form-control selectpicker">
                 <option value=""></option>
                 <option *ngFor="let cat of getCategoriesDisponibles()" value="{{cat.libelle}}">{{cat.libelle}}</option>
               </select>
+              {{catLibSelect}}
             </div>
+
             <div class="col-sm-7 mt-4 pt-2">
-                <div class="form-row align-items-center">
-                  <a href="#" (click)="ajoutCategorie=true" *ngIf="!ajoutCategorie"><span class="oi oi-plus mr-1 mt-1"></span></a>
-                  <a href="#" (click)="ajoutCategorie=false" *ngIf="ajoutCategorie"><span class="oi oi-minus mr-1"></span></a>
-                  <input type="text" *ngIf="ajoutCategorie" class="form-control col-sm-5 ml-2 mr-2" name="categorie" [(ngModel)]="nouvelleCat"/>
-                  <button type="button" *ngIf="ajoutCategorie" class="btn btn-primary" (click)="ajouterCategorie()">Ajouter</button>
-                </div>
+              <div class="form-row align-items-center">
+                <a href="#" (click)="ajoutCategorie=true;nouvelleCat=''" *ngIf="!ajoutCategorie"><span class="oi oi-plus mr-1 mt-1"></span></a>
+                <a href="#" (click)="ajoutCategorie=false" *ngIf="ajoutCategorie"><span class="oi oi-minus mr-1"></span></a>
+                <input type="text" *ngIf="ajoutCategorie" class="form-control col-sm-5 ml-2 mr-2" name="categorie" [(ngModel)]="nouvelleCat"/>
+                <button type="button" *ngIf="ajoutCategorie" class="btn btn-primary" (click)="ajouterCategorie()">Ajouter</button>
               </div>
-              
+            </div>
           </div>
 
           <div class="form-group row">
               <label class="col-sm-2 col-form-label">Accessibilite</label>
               
+
               <div *ngIf="isModifiable()" class="btn-group col-sm-7">
                 <input  
-                      type="range" class="custom-range" 
+                      type="range" 
+                      class="custom-range" 
                       [min]="firstAccessibilite" [max]="lastAccessibilite"
-                      name="accessibilite"
-                      [(ngModel)]="jeuEdit.accessibilite"
+                      id="accessibilite"
+                      formControleName="accessibilite"
                       />
               </div>
               <div class="btn-group col-sm-3 align-bottom">
@@ -90,18 +65,18 @@
                     [ngClass]="{'text-success': (jeuEdit.accessibilite<3),
                                 'text-primary': jeuEdit.accessibilite==3,
                                 'text-warning': jeuEdit.accessibilite==4,
-                                'text-danger font-weight-bold': jeuEdit.accessibilite==5}"
-                    >{{accesbiliteVal}}</label >
+                                'text-danger font-weight-bold': jeuEdit.accessibilite==5}">
+                    {{accesbiliteVal}}
+                  </label >
               </div>
           </div>
       
           <div class="form-group row">
             <label class="col-sm-2 col-form-label">Age min</label>
             <div class="col-sm-10">
-              <input  class="form-control" 
-                      placeholder="Age min" 
-                      name="ageMin"
-                      [(ngModel)]="jeuEdit.ageMin"
+              <input  type="text"
+                      class="form-control"
+                      formControleName="ageMin"
                       [readonly]="!isModifiable()"
                       />
             </div>
@@ -110,19 +85,19 @@
           <div class="form-group row">
             <label class="col-sm-2 col-form-label">De</label>
             <div class="col-sm-2">
-              <input  class="form-control" 
-                      placeholder="min"
+              <input  type="text"
+                      class="form-control" 
                       name="nbJoueursMin"
-                      [(ngModel)]="jeuEdit.nbJoueursMin"
+                      formControleName="nbJoueursMin"
                       [readonly]="!isModifiable()"
                       />
             </div>
             <label class="col-sm-1 col-form-label">à</label>
             <div class="col-sm-2">
-              <input  class="form-control" 
-                      placeholder="max" 
+              <input  type="text"
+                      class="form-control" 
                       name="nbJoueursMax"
-                      [(ngModel)]="jeuEdit.nbJoueursMax"
+                      formControleName="nbJoueursMax"
                       [readonly]="!isModifiable()"
                       />
             </div>
@@ -132,9 +107,10 @@
           <div class="form-group row">
             <label class="col-sm-2 col-form-label">Durée</label>
             <div class="col-sm-2">
-              <input  class="form-control" 
+              <input  type="text"
+                      class="form-control" 
                       name="dureeMin"
-                      [(ngModel)]="jeuEdit.dureeMin"
+                      formControleName="dureeMin"
                       [readonly]="!isModifiable()"
                       />
             </div>

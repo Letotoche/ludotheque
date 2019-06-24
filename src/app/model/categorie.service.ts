@@ -14,8 +14,8 @@ export class CategorieService {
     this.dataSource = new StaticDatasource();
       this.categories = new Array<Categorie>();
       this.categories =  this.dataSource.data
-                                            .map( (jeu,idx,tab) => {return jeu.categories} )
-                                            .reduce((acc, val) => acc.concat(val), [])
+                                            .map( (jeu,idx,tab) => {return jeu.categorie} )
+                                            //.reduce((acc, val) => acc.concat(val), [])
                                             .filter( (cat,idx,tab) => tab.findIndex(c => c.libelle===cat.libelle) === idx);  
     }
 

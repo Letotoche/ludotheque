@@ -2,9 +2,7 @@
 export class Jeu {
     constructor(public id:number=0,
                 public nom?: string,
-                public editeur?: string,
-                public distributeur?: string,
-                public categories?: Categorie[],
+                public categorie?: Categorie,
                 public accessibilite?: number,
                 public ageMin?: number,
                 public nbJoueursMin?: number,
@@ -15,9 +13,7 @@ export class Jeu {
     cloner(jeuClone: Jeu) {
         this.id=jeuClone.id;
         this.nom=jeuClone.nom;
-        this.editeur=jeuClone.editeur;
-        this.distributeur=jeuClone.distributeur;
-        this.categories=jeuClone.categories;
+        this.categorie=jeuClone.categorie;
         this.accessibilite=jeuClone.accessibilite;
         this.ageMin=jeuClone.ageMin;
         this.nbJoueursMin=jeuClone.nbJoueursMin;

@@ -1,12 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule} from '@angular/common/http'
 
 import { AppComponent } from './app.component';
 import { ListeJeuxComponent } from './jeux/listeJeux.component';
 import { AppRoutingModule } from './app-routing.module';
 import { EmpruntComponent } from './emprunt/emprunt.component';
 import { JeuEditComponent } from './jeux/jeu-edit/jeu-edit.component';
+import { JeuFicheComponent } from './jeux/jeu-fiche/jeu-fiche.component';
 
 
 @NgModule({
@@ -14,12 +16,15 @@ import { JeuEditComponent } from './jeux/jeu-edit/jeu-edit.component';
       AppComponent,
       ListeJeuxComponent,
       EmpruntComponent,
-      JeuEditComponent
+      JeuEditComponent,
+      JeuFicheComponent
    ],
    imports: [
       BrowserModule,
       AppRoutingModule,
-      FormsModule
+      FormsModule,
+      ReactiveFormsModule,
+      HttpClientModule
    ],
    providers: [],
    bootstrap: [

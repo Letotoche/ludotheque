@@ -8,19 +8,18 @@
     <thead class="table-dark ">
       <tr>
         <th scope="col">Nom</th>
-        <th scope="col">Editeur</th>
-        <th scope="col">Categories</th>
+        <th scope="col">Catégorie</th>
         <th scope="col">Difficulté</th>
         <th scope="col">nb Joueurs</th>
         <th scope="col">Durée</th>
         <th scope="col">Actions</th>
+        <th scope="col">Actions 2</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let jeu of getJeux()">
         <td>{{jeu.nom}}</td>
-        <td>{{jeu.editeur}}</td>
-        <td><span *ngFor="let cat of jeu.categories">{{cat.libelle}}</span></td>
+        <td><span>{{jeu.categorie.libelle}}</span></td>
         <td [ngClass]="{'text-success': (jeu.accessibilite<3),
         'text-primary': jeu.accessibilite==3,
         'text-warning': jeu.accessibilite==4,
@@ -31,6 +30,9 @@
             <a href="#" (click)="visualiser(jeu.id)" data-toggle="modal" data-target="#editJeuModal" ><span class="oi oi-magnifying-glass mr-1"></span></a>
             | <a href="#" (click)="editer(jeu.id)" data-toggle="modal" data-target="#editJeuModal" ><span class="oi oi-pencil ml-1 mr-1"></span></a>
             | <a href="#" (click)="supprimer(jeu.id)" data-toggle="modal" ><span class="oi oi-trash ml-1 mr-1"></span></a>
+        </td>
+        <td>
+          <a [routerLink]="['/jeux/fiche',jeu.id]"><span class="oi oi-magnifying-glass mr-1"></span></a>
         </td>
       </tr>
     </tbody>
