@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { EmpruntComponent } from './emprunt/emprunt.component';
 import { JeuEditComponent } from './jeux/jeu-edit/jeu-edit.component';
 import { JeuFicheComponent } from './jeux/jeu-fiche/jeu-fiche.component';
+import { JeuCreateFormComponent } from './jeux/jeu-create-form/jeu-create-form.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { JeuFicheComponent } from './jeux/jeu-fiche/jeu-fiche.component';
       ListeJeuxComponent,
       EmpruntComponent,
       JeuEditComponent,
-      JeuFicheComponent
+      JeuFicheComponent,
+      JeuCreateFormComponent
    ],
    imports: [
       BrowserModule,

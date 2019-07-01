@@ -1,0 +1,60 @@
+<div>
+  <h2>Ajouter un jeu à votre ludothèque</h2>
+  {{jeuCreateForm.valid}}
+  <form [formGroup]="jeuCreateForm"  (ngSubmit)="creerJeu()">
+    <div class="form-row" >
+      <div class="form-group col-md-6">
+        <label for="nomInput">Nom</label>
+        <input type="text" class="form-control" id="nomInput" formControlName="nom"/>
+      </div>
+    </div>
+
+    <div class="form-row" >
+      <div class="form-group col-md-6" formGroupName="categorie">
+        <label for="categorieSelect">Catégorie</label>
+        <select 
+            formControlName="libelle"
+            id="categorieSelect"
+            class="form-control selectpicker">
+          <option value=""></option>
+          <option *ngFor="let cat of categories" value="{{cat.libelle}}">{{cat.libelle}}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-row" >
+      <div class="form-group col-md-6">
+          <label for="accessibiliteInput">Accessibilite</label>
+          <input type="text" class="form-control" id="accessibiliteInput" formControlName="accessibilite"/>
+      </div>
+      <div class="form-group col-md-6">
+          <label for="ageMinInput">ageMin</label>
+          <input type="text" class="form-control" id="ageMinInput" formControlName="ageMin"/>
+      </div>
+    </div>
+
+    <div class="form-row" >
+        <div class="form-group col-md-4">
+            <label for="nbJoueursMinInput">Nombre de joueurs minimum</label>
+            <input type="text" class="form-control" id="nbJoueursMinInput" formControlName="nbJoueursMin"/>
+        </div>
+        <div class="form-group col-md-4">
+            <label for="nbJoueursMaxInput">Nombre de joueurs maximum</label>
+            <input type="text" class="form-control" id="nbJoueursMaxInput" formControlName="nbJoueursMax"/>
+        </div>
+        <div class="form-group col-md-4">
+            <label for="dureeMinInput">Durée (minutes)</label>
+            <input type="text" class="form-control" id="dureeMinInput" formControlName="dureeMin"/>
+        </div>
+      </div>
+
+    <button type="submit" [ngClass]="{'btn':true , 
+                                      'btn-primary':jeuCreateForm.valid, 
+                                      'btn-dark':!jeuCreateForm.valid }"  
+                          [disabled]="!jeuCreateForm.valid">
+      <i class="oi oi-check mr-2"></i>Créer
+    </button>
+    <button type="submit" class="btn btn-dark ml-2" [routerLink]="['/jeu/liste']"><i class="oi oi-action-undo mr-2"></i>Annuler</button>
+  </form>
+
+</div>

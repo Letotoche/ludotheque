@@ -1,37 +1,33 @@
 import { Injectable } from '@angular/core';
 import { StaticDatasource } from './staticDatasource.model';
 import { Categorie, Jeu } from './jeu.model';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategorieService {
 
-  private dataSource: StaticDatasource;
-  private categories: Categorie[] = [];
   
-  constructor() { 
-    this.dataSource = new StaticDatasource();
-      this.categories = new Array<Categorie>();
+  constructor(private http: HttpClient) { 
+      /*this.categories = new Array<Categorie>();
       this.categories =  this.dataSource.data
                                             .map( (jeu,idx,tab) => {return jeu.categorie} )
                                             //.reduce((acc, val) => acc.concat(val), [])
-                                            .filter( (cat,idx,tab) => tab.findIndex(c => c.libelle===cat.libelle) === idx);  
-    }
+                                            .filter( (cat,idx,tab) => tab.findIndex(c => c.libelle===cat.libelle) === idx);*/  
+  }
 
-  getAllCategories():Categorie[] {
-    let liste: Categorie[];
-    liste = this.categories;
-    liste.sort( (c1, c2) => c1.libelle.localeCompare(c2.libelle) );
-    return liste;
+  getAllCategories():Observable<Categorie[]> {
+    return this.http.get<Categorie[]>('/server/api/v1/categorieJeu');
   }
 
   getCategorieByLibelle(libelle: string): Categorie {
-    return this.categories.find(c => c.libelle === libelle);
+    return null;//this.categories.find(c => c.libelle === libelle);
   }
 
   addCategorie(libelle: string) {
-    this.categories.push(new Categorie(libelle));
+    //this.categories.push(new Categorie(libelle));
   }
 
 }

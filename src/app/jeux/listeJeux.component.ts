@@ -25,7 +25,7 @@ export class ListeJeuxComponent implements OnInit {
       data => { this.jeux = data},
       err => { 
         console.error("ListeJeuxComponent.majJeux : " + err)
-        this.jeux = [];;
+        this.jeux = [];
       },
       () => console.log("ListeJeuxComponent.majJeuxjeux : " + JSON.stringify(this.jeux))
     );
